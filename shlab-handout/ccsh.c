@@ -343,7 +343,7 @@ void do_bgfg(char **argv)
 
 	if(!strcmp(argv[0], "bg")) {
 		printf("[%d] (%d) %s", rec->jid, rec->pid, rec->cmdline);
-		kill(rec->pid, SIGCONT);
+		kill(-(rec->pid), SIGCONT);
 		rec->state = BG;
 	}
 
