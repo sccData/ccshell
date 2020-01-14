@@ -58,6 +58,7 @@ struct job_t jobs[MAXJOBS]; /* The job list */
 void eval(char *cmdline);
 int builtin_cmd(char **argv);
 void do_bgfg(char **argv);
+void do_cd(char **argv);
 void waitfg(pid_t pid);
 
 void sigchld_handler(int sig);
@@ -294,7 +295,25 @@ int builtin_cmd(char **argv)
 		do_bgfg(argv);
 		return 1;
 	}
+
+	if(!strcmp(argv[0], "cd")) {
+		do_cd(argv);
+		return 1;
+	}
     return 0;     /* not a builtin command */
+}
+
+/*
+ * do_cd - change dir
+ */
+void do_cd(char **argv) {
+	if(!argv[1])
+		return;
+	if(chdir(argv[1]) < 0) {
+		printf("path error\n");
+	}
+
+	return;
 }
 
 /* 
